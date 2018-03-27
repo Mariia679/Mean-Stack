@@ -1,0 +1,33 @@
+<div class="indention">
+  <h1 class="indention-style" style="font-family: 'Annie Use Your Telescope';">{{ post.title }}</h1>
+  <hr>
+  <div class="indention-style" style="margin-right: 0px;margin-left: 0px;">{{post.description}}</div>
+  <div class="author-style indention-style" style="float:right">{{ post.updated_date}} {{ post.author }}</div>
+  <span *ngIf="!commentsIsEmpty;else empty">
+    <div class="row" style="margin-top: 15px;" *ngFor="let comment of post.comments; let i = index"
+         [attr.data-index]="i">
+      <span *ngIf="!comment.commentIsEmpty">
+        <a (click)="updatePost(i)" class="a-style" style="margin-left: 10px; font-size: 16px;">
+          <i class="far fa-thumbs-up"></i> {{ comment.likes }}</a>  - by user
+        <span class="post-indention-style">{{ comment.comment}}</span>
+      </span>
+    </div>
+  </span>
+  <ng-template #empty>
+    <div class="no-comments" style="margin-left: 90px;">No comments</div>
+  </ng-template>
+  <div class="row" style="font-family: 'Annie Use Your Telescope';">
+    <h2 class="indention-style" style="margin-top: 20px;margin-left: 20px; color: #0000009c;">Add a new comment</h2>
+    <div class="col-md-12">
+      <form (ngSubmit)="saveComment(commentForm)" #commentForm="ngForm">
+        <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="commentsForm.comment" name="comment" required
+                 placeholder="Comment">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info" [disabled]="!commentForm.form.valid">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="indention">
+  <h1 class="indention-style">Flapper News</h1>
+  <hr>
+  <div class="row indention-style">
+        <span class="col-md-9 col-sm-9 col-xs-12" *ngFor="let post of news">
+          <a (click)="updatePost(post)" class="a-style" style="margin-left: 10px">
+            <i class="far fa-thumbs-up"></i> {{ post.likes }}
+          </a>
+          <span class="title-style"> {{ post.title }} </span><span class="author-style">({{post.author}})</span>
+          <a [routerLink]="['/post-details', post._id]" class="a-style"
+             style="font-size: 14px; color: rgb(27, 110, 221)">Comments</a>
+        </span>
+  </div>
+  <h2 class="indention-style" style="margin-top: 20px; color: #0000009c;">Add a new post</h2>
+  <div class="row">
+    <div class="col-md-12">
+      <form (ngSubmit)="savePost(newsForm)" #newsForm="ngForm">
+        <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="postForm.title" name="title" required
+                 placeholder="Title">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="postForm.author" name="author" required
+                 placeholder="Author">
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" [(ngModel)]="postForm.description" name="description" required
+                    placeholder="Add news here" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info" [disabled]="!newsForm.form.valid">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
